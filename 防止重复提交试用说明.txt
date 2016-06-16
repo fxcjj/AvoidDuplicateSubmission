@@ -1,0 +1,10 @@
+防止重复提交试用说明（后端）
+1、在需要用到的防止提交的web的配置文件引入配置（要防止多次引入，多次引入后任何提交都得不到回应）
+	<mvc:interceptor>
+		<mvc:mapping path="/**" />
+		<bean class="com.kyj.kjf.interceptor.AvoidDuplicateSubmissionInterceptor"></bean>
+	</mvc:interceptor>
+2、在需要防止重复提交的表单请求Action和数据处理Action上加上注解
+表单的Action:@AvoidDuplicateSubmission(saveToken=true)
+处理数据的Action:@AvoidDuplicateSubmission(removeToken=true)
+注解中有formName属性，决定当前用户的所有form是否公用一个token
